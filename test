@@ -1,0 +1,69 @@
+7. Using Taurus for Performance Testing
+7.1 What is Taurus
+
+Taurus is an open-source automation tool that simplifies running performance tests. It acts as a wrapper around JMeter, Gatling, and other tools, letting you define tests in a simple YAML format.
+
+Key Benefits:
+
+Readable, maintainable YAML configuration
+
+Easy integration into CI/CD pipelines
+
+Supports JMeter scripts directly
+
+Automated reporting and metrics collection
+7.2 Taurus YAML File Example
+execution:
+  - executor: jmeter
+    scenario: sample_test
+    concurrency: 50
+    ramp-up: 1m
+    hold-for: 5m
+scenarios:
+  sample_test:
+    script: test_plan.jmx
+reporting:
+  - module: final-stats
+  - module: junit-xml
+  - module: console
+
+Explanation:
+
+executor: Load engine (JMeter)
+
+scenario: Test scenario name
+
+concurrency: Number of virtual users
+
+ramp-up: Time to reach full load
+
+hold-for: Duration to maintain load
+
+script: JMeter test plan file
+
+reporting: Output formats (console, JUnit XML, final stats)
+
+7.3 Running the Test
+bzt sample_test.yml
+Runs the test as per YAML configuration
+Generates metrics and dashboards automatically
+Can run locally or on BlazeMeter cloud
+
+7.4 Integrating Taurus with BlazeMeter
+Use Taurus YAML to define your performance test
+Upload the YAML file to BlazeMeter
+Select load generators and execute
+Monitor real-time dashboards and post-test reports
+Advantage: Maintain a single Taurus file for local, CI/CD, and cloud testing.
+
+7.5 Best Practices
+
+Parameterize input data using CSV or environment variables
+
+Keep scenarios modular for reusability
+
+Combine multiple JMeter scripts in a single YAML file
+
+Integrate with CI/CD for automated performance gates
+
+Use BlazeMeter dashboards for detailed reporting
